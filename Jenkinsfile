@@ -88,7 +88,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
             			sh '''
                       
-                			echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                			echo "$DOCKER_PASS" | sudo docker login -u "$DOCKER_USER" --password-stdin
                 			sudo docker tag fa34silva824/calculator fa34silva824/calculator:latest
                 			sudo docker push fa34silva824/calculator:latest
             				'''
