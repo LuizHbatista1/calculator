@@ -78,7 +78,7 @@ pipeline {
         stage("Docker build") {
             steps {
                 sh '''
-                    docker build -t fa34silva824/calculator .
+                    sudo docker build -t fa34silva824/calculator .
                 '''
             }
         }
