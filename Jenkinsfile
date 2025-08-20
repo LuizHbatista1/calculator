@@ -78,6 +78,7 @@ pipeline {
     				steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
             			sh '''
+                      sudo usermod -aG docker $USER
                 			echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                 			docker tag fa34silva824/calculator fa34silva824/calculator:latest
                 			docker push fa34silva824/calculator:latest
