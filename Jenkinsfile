@@ -74,6 +74,15 @@ pipeline {
 
 				}
 
+
+        stage("Docker build") {
+            steps {
+                sh '''
+                    docker build -t fa34silva824/calculator .
+                '''
+            }
+        }
+
 				stage("Docker push") {
     				steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
