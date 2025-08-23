@@ -103,25 +103,25 @@ pipeline {
                   sh '''
                      curl -L https://istio.io/downloadIstio | sh -
                      export PATH=$PWD/istio-1.27.0/bin:$PATH
-                     istioctl install --set profile=default -y
+                    
                 '''
             }
         }
 
 
-        stage("deploy to k8s cluster"){
-
-            steps{
-                 
-                 sh "kubectl apply -f k8s/replicaSet.yaml"
-                 sh "kubectl apply -f k8s/service.yaml"
-                 sh "kubectl apply -f k8s/gateway.yaml"
-                 sh "kubectl apply -f k8s/virtual-service.yaml"
-
-            }
-
+        stage("deploy to k8s cluster") {
+            steps {
+                withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]) {
+                sh '''
+                    ./istio-1.27.0/bin/istioctl install --set profile=default -y
+                    kubectl apply -f replicaSet.yaml
+                    kubectl apply -f service.yaml
+                    kubectl apply -f gateway.yaml
+                    kubectl apply -f virtual-service.yaml
+                '''
+                    }
+    
+            }            
         }
-
-     }
-
+    }
 }
