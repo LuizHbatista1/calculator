@@ -96,6 +96,31 @@ pipeline {
     					}
 					}
 
+
+        stage("install istio and create profile"){
+
+            steps{
+
+                 sh "istioctl install --set profile=default -y"
+
+
+            }
+
+        }
+
+        stage("deploy to k8s cluster"){
+
+            steps{
+                 
+                 sh "kubectl apply -f k8s/replicaSet.yaml"
+                 sh "kubectl apply -f k8s/service.yaml"
+                 sh "kubectl apply -f k8s/gateway.yaml"
+                 sh "kubectl apply -f k8s/virtual-service.yaml"
+
+            }
+
+        }
+
      }
 
 }

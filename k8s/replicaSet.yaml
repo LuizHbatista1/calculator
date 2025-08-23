@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: calculator-replicaset
+  labels:
+    app: calculator
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: calculator
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: calculator
+        version: "1"
+    spec:
+      containers:
+      - name: calculator-container
+        image: fa34silva824/calculator:latest   
+        ports:
+        - containerPort: 9090
+

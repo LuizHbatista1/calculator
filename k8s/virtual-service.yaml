@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: calculator-vs
+  namespace: default
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - calculator-gateway
+  http:
+    - route:
+        - destination:
+            host: calculator-service   # nome do Service Kubernetes
+            port:
+              number: 9090           # porta exposta pelo Service
+
