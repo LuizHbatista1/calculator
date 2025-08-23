@@ -98,15 +98,16 @@ pipeline {
 
 
         stage("install istio and create profile") {
-
             steps {
+
                   sh '''
-                    curl -L https://istio.io/downloadIstio | sh -
-                    export PATH=$PWD/istio-*/bin:$PATH
-                    istioctl install --set profile=default -y
-                    '''
+                     curl -L https://istio.io/downloadIstio | sh -
+                     export PATH=$PWD/istio-1.27.0/bin:$PATH
+                     istioctl install --set profile=default -y
+                '''
             }
         }
+
 
         stage("deploy to k8s cluster"){
 
