@@ -113,6 +113,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'minikube-kubeconfig', variable: 'KUBECONFIG')]) {
                 sh '''
+                    export KUBECONFIG=/var/lib/jenkins/.minikube/config
                     ./istio-1.27.0/bin/istioctl install --set profile=default -y
                     kubectl apply -f replicaSet.yaml
                     kubectl apply -f service.yaml
