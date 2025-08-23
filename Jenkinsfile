@@ -115,6 +115,7 @@ pipeline {
                 sh '''
                     export KUBECONFIG=/var/lib/jenkins/.kube/config
                     ./istio-1.27.0/bin/istioctl install --set profile=default -y
+                    kubectl label namespace default istio-injection=enabled --overwrite
                     kubectl apply -f k8s/replicaSet.yaml
                     kubectl apply -f k8s/service.yaml
                     kubectl apply -f k8s/gateway.yaml
